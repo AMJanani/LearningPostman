@@ -1,0 +1,190 @@
+{
+	"info": {
+		"_postman_id": "aa73d330-9578-4390-ba3f-18abc635aed4",
+		"name": "JIRA_22March",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "create jira issue and the id as global variable",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Test passed with status 201\", function(){\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"var jira_response = pm.response.json();\r",
+							"var local_jira_id = jira_response.id;\r",
+							"pm.globals.set(\"JIRA_ID\",local_jira_id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"fields\": {\r\n    \"project\":\r\n                {\r\n                    \"key\": \"AP\"\r\n                },\r\n    \"summary\": \"create issue in AP project\",\r\n    \"description\": \"Creating of an issue using project keys and issue type names using the REST API\",\r\n    \"issuetype\": {\r\n                    \"name\": \"Bug\"\r\n                }\r\n    }\r\n}\r\n"
+				},
+				"url": {
+					"raw": "https://{{JIRA_QA}}/rest/api/2/issue/",
+					"protocol": "https",
+					"host": [
+						"{{JIRA_QA}}"
+					],
+					"path": [
+						"rest",
+						"api",
+						"2",
+						"issue",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update jira issue",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Test passed with status 204\", function(){\r",
+							"    pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"fields\": {\r\n       \r\n        \"description\": \"Issue updated via Postman\"\r\n    }\r\n}\r\n"
+				},
+				"url": {
+					"raw": "https://{{JIRA_QA}}/rest/api/2/issue/{{JIRA_ID}}",
+					"protocol": "https",
+					"host": [
+						"{{JIRA_QA}}"
+					],
+					"path": [
+						"rest",
+						"api",
+						"2",
+						"issue",
+						"{{JIRA_ID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete a jira issue",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Test passed with status 204\", function(){\r",
+							"    pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "https://{{JIRA_QA}}/rest/api/2/issue/{{JIRA_ID}}",
+					"protocol": "https",
+					"host": [
+						"{{JIRA_QA}}"
+					],
+					"path": [
+						"rest",
+						"api",
+						"2",
+						"issue",
+						"{{JIRA_ID}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "username",
+				"value": "RestAPIJira@gmail.com",
+				"type": "string"
+			},
+			{
+				"key": "password",
+				"value": "Aa0q0afouiFYWd7lztCuA5ED",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
